@@ -31,7 +31,7 @@ public class CurrencyConversionController {
         CurrencyConversionBean c = r.getBody();
 
 
-        return new CurrencyConversionBean(1l, c.getFromValue(), c.getToValue(), c.getConversionMultiple(), quantity, quantity.multiply(c.getConversionMultiple()));
+        return new CurrencyConversionBean(1l, c.getFromValue(), c.getToValue(), c.getConversionMultiple(), quantity, quantity.multiply(c.getConversionMultiple()), c.getPort());
     }
 
     @GetMapping("/currency-conversion-feign/from/{from}/to/{to}/quantity/{quantity}")
@@ -42,6 +42,6 @@ public class CurrencyConversionController {
         CurrencyConversionBean c = currencyExchangeServiceProxy.retrieveExchangeValue(from, to);
 
 
-        return new CurrencyConversionBean(1l, c.getFromValue(), c.getToValue(), c.getConversionMultiple(), quantity, quantity.multiply(c.getConversionMultiple()));
+        return new CurrencyConversionBean(1l, c.getFromValue(), c.getToValue(), c.getConversionMultiple(), quantity, quantity.multiply(c.getConversionMultiple()), c.getPort());
     }
 }
