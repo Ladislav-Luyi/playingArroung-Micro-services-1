@@ -34,14 +34,13 @@ public class CurrencyConversionController {
         return new CurrencyConversionBean(1l, c.getFromValue(), c.getToValue(), c.getConversionMultiple(), quantity, quantity.multiply(c.getConversionMultiple()), c.getPort());
     }
 
-    @GetMapping("/currency-conversion-feign/from/{from}/to/{to}/quantity/{quantity}")
-    public CurrencyConversionBean retrieveConversionFeign(@PathVariable String from, @PathVariable String to, @PathVariable BigDecimal quantity){
+    @GetMapping("/currency-converter-feign/from/{from}/to/{to}/quantity/{quantity}")
+    public CurrencyConversionBean convertCurrencyFeign(@PathVariable String from, @PathVariable String to,
+                                                       @PathVariable BigDecimal quantity) {
 
+        CurrencyConversionBean response = currencyExchangeServiceProxy.retrieveExchangeValue(from, to);
 
-
-        CurrencyConversionBean c = currencyExchangeServiceProxy.retrieveExchangeValue(from, to);
-
-
-        return new CurrencyConversionBean(1l, c.getFromValue(), c.getToValue(), c.getConversionMultiple(), quantity, quantity.multiply(c.getConversionMultiple()), c.getPort());
+        return new CurrencyConversionBean(response.getIn(), from, to, response.getConversionMultiple(), quantity,
+                quantity.multiply(response.getConversionMultiple()), response.getPort());
     }
 }

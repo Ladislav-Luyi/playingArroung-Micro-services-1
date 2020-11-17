@@ -10,6 +10,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 public class CurrencyConversionServiceApplication {
 
+	//http://localhost:8100/currency-converter-feign/from/EUR/to/USD/quantity/100
 	public static void main(String[] args) {
 		SpringApplication.run(CurrencyConversionServiceApplication.class, args);
 	}
