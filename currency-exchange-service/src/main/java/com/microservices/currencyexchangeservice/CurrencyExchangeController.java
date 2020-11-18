@@ -1,6 +1,8 @@
 package com.microservices.currencyexchangeservice;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.core.env.Environment;
@@ -17,6 +19,9 @@ public class CurrencyExchangeController {
     @Autowired
     private Environment environment;
 
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private ExchangeValueRepository repository;
     //http://localhost:8000/currency-exchange/from/EUR/to/USD/
@@ -24,6 +29,7 @@ public class CurrencyExchangeController {
     public ExchangeValue retrieveExchangeValue(@PathVariable String fromValue, @PathVariable String toValue){
         ExchangeValue exchangeValue =  repository.findByFromValueAndToValue(fromValue,toValue);
         exchangeValue.setPort(Integer.parseInt(Objects.requireNonNull(environment.getProperty("local.server.port"))) );
+        logger.info(exchangeValue.toString());
         return exchangeValue;
     }
 
